@@ -20,7 +20,7 @@ const RowData = ({ rowData }) => {
         </td>
         <td
           data-sort-value={`${data.attributes.subject}`}
-          class="font-mono-sm text-tabular text-right"
+          class="font-mono-sm text-tabular"
         >
           {data.attributes.subject}
         </td>
@@ -29,6 +29,7 @@ const RowData = ({ rowData }) => {
             `${data.attributes["violation-date"]}`
           ).getTime()}
           aria-sort="ascending"
+          class="font-mono-sm text-tabular text-right"
         >
           {data.attributes["created-date"]}
         </td>
@@ -36,6 +37,7 @@ const RowData = ({ rowData }) => {
           data-sort-value={new Date(
             `${data.attributes["violation-date"]}`
           ).getTime()}
+          class="font-mono-sm text-tabular text-right"
         >
           {data.attributes["violation-date"]}
         </td>
@@ -51,7 +53,10 @@ const RowData = ({ rowData }) => {
         >
           {data.attributes["consumer-area-code"]}
         </td>
-        <td data-sort-value={`${data.attributes["company-phone-number"]}`}>
+        <td
+          data-sort-value={`${data.attributes["company-phone-number"]}`}
+          class="font-mono-sm text-tabular text-right"
+        >
           {data.attributes["company-phone-number"]}
         </td>
         <td
@@ -108,32 +113,32 @@ function App() {
             <caption>Do Not Call (DNC) Reported Calls Data</caption>
             <thead>
               <tr>
-                <th data-sortable scope="col" role="columnheader">
+                <th>
                   ID
                 </th>
                 <th data-sortable scope="col" role="columnheader">
-                  subject
+                  Subject
                 </th>
                 <th data-sortable scope="col" role="columnheader">
-                  created-date
+                  Created Date
                 </th>
                 <th data-sortable scope="col" role="columnheader">
-                  violation-date
+                  Violation Date
                 </th>
                 <th data-sortable scope="col" role="columnheader">
-                  recorded-message-or-robocall
+                  Recorded Message or Robocall
                 </th>
                 <th data-sortable scope="col" role="columnheader">
-                  consumer-area-code
+                  Consumer Area Code
                 </th>
                 <th data-sortable scope="col" role="columnheader">
-                  company-phone-number
+                  Company Phone Number
                 </th>
                 <th data-sortable scope="col" role="columnheader">
-                  consumer-city
+                  Consumer City
                 </th>
                 <th data-sortable scope="col" role="columnheader">
-                  consumer-state
+                  Consumer State
                 </th>
               </tr>
             </thead>
