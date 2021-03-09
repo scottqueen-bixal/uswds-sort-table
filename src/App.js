@@ -1,160 +1,16 @@
-import React from 'react'
+// import React from 'react'
 import './lib/uswds/dist/css/uswds.min.css';
-import USWDS from "./lib/uswds/src/js/components";
-const { table } = USWDS;
+import USATable from './components/table'
 
-const API_KEY =
-  process.env.NODE_ENV === "development" && process.env.REACT_APP_DATA_GOV_API;
-  // get a key from https://api.data.gov/signup/
-
-const RowData = ({ rowData }) => {
-
-  console.log({rowData})
-
-  return (
-    rowData?.data?.map((data) => {
-    return (
-      <tr key={data.id}>
-        <td data-sort-value={`${data.id}`}>
-          <a href={data.links.self}>{data.id}</a>
-        </td>
-        <td
-          data-sort-value={`${data.attributes.subject}`}
-          class="font-mono-sm text-tabular"
-        >
-          {data.attributes.subject}
-        </td>
-        <td
-          data-sort-value={new Date(
-            `${data.attributes["violation-date"]}`
-          ).getTime()}
-          aria-sort="ascending"
-          class="font-mono-sm text-tabular text-right"
-        >
-          {data.attributes["created-date"]}
-        </td>
-        <td
-          data-sort-value={new Date(
-            `${data.attributes["violation-date"]}`
-          ).getTime()}
-          class="font-mono-sm text-tabular text-right"
-        >
-          {data.attributes["violation-date"]}
-        </td>
-        <td
-          data-sort-value={`${data.attributes["recorded-message-or-robocall"]}`}
-          class="font-mono-sm text-tabular text-right"
-        >
-          {data.attributes["recorded-message-or-robocall"]}
-        </td>
-        <td
-          data-sort-value={`${data.attributes["consumer-area-code"]}`}
-          class="font-mono-sm text-tabular text-right"
-        >
-          {data.attributes["consumer-area-code"]}
-        </td>
-        <td
-          data-sort-value={`${data.attributes["company-phone-number"]}`}
-          class="font-mono-sm text-tabular text-right"
-        >
-          {data.attributes["company-phone-number"]}
-        </td>
-        <td
-          data-sort-value={`${data.attributes["consumer-city"]}`}
-          class="font-mono-sm text-tabular text-right"
-        >
-          {data.attributes["consumer-city"]}
-        </td>
-        <td
-          data-sort-value={`${data.attributes["consumer-state"]}`}
-          class="font-mono-sm text-tabular text-right"
-        >
-          {data.attributes["consumer-state"]}
-        </td>
-      </tr>
-    );
-  })
-  )
-};
 
 function App() {
-
-  const [testData, setTestData] = React.useState(null);
-  const ref = document.body;
-
-  const getTestData = async () => {
-    const response = await fetch(
-      `https://api.ftc.gov/v0/dnc-complaints?api_key=${API_KEY}&items_per_page=20`
-    );
-    const data = await response.json();
-    setTestData(data);
-  };
-
-  React.useEffect(() => {
-    getTestData();
-
-    // initialize
-    table.on(ref);
-
-    // remove event listeners when component un-mounts.
-    return () => {
-      table.off();
-    };
-  }, [ref]);
-
-  console.log({ testData });
 
   return (
     <div className="App">
       <header className="App-header"></header>
       <main>
-        <div class="usa-table-container--scrollable usa-table--striped usa-table--stacked-header">
-          <table class="usa-table usa-table--borderless usa-table--compact">
-            <caption>Do Not Call (DNC) Reported Calls Data</caption>
-            <thead>
-              <tr>
-                <th>
-                  ID
-                </th>
-                <th data-sortable scope="col" role="columnheader">
-                  Subject
-                </th>
-                <th data-sortable scope="col" role="columnheader">
-                  Created Date
-                </th>
-                <th data-sortable scope="col" role="columnheader">
-                  Violation Date
-                </th>
-                <th data-sortable scope="col" role="columnheader">
-                  Recorded Message or Robocall
-                </th>
-                <th data-sortable scope="col" role="columnheader">
-                  Consumer Area Code
-                </th>
-                <th data-sortable scope="col" role="columnheader">
-                  Company Phone Number
-                </th>
-                <th data-sortable scope="col" role="columnheader">
-                  Consumer City
-                </th>
-                <th data-sortable scope="col" role="columnheader">
-                  Consumer State
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {testData?.data?.length > 0 ? (
-                <RowData rowData={testData} />
-              ) : (
-                <div>No Fetched Data {testData?.error}</div>
-              )}
-            </tbody>
-          </table>
-          <div
-            class="usa-sr-only usa-table__announcement-region"
-            aria-live="polite"
-          />
-        </div>
+        <h2 id="usa-table">USA Table</h2>
+        <USATable/>
       </main>
     </div>
   );
